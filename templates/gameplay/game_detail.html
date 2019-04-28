@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %} Game {{game.first_player.username}} vs {{game.second_player.username}} {% endblock title %}
+
+{% block styling %}
+    {{ block.super }}
+        <style type="text/css">
+
+            .tictactoe-table {
+                width: 300px;
+                border-width: 2px;
+            }
+
+            .tictactoe-cell{
+                background-color: #debb27;
+                width: 100px;
+                height: 100px;
+                text-align: center;
+                vertical-align: middle ! important;
+                font-size: 60px;
+
+            }
+        </style>
+{% endblock styling %}
+
+{% block content %}
+<div class="well col-md-6">
+    <p>Game detail: {{ game.id }}</p>
+    <!-- <blockquote><p>{{ invitation.message }}</p></blockquote> -->
+
+    <div class="col-md-5">
+        <table class="table table-bordered tictactoe-table">
+            {% for row in game.board %}
+            <tr>
+                {% for move in row %}
+                <td class="tictactoe-cell">
+                    {% if move %}
+                        {% if move.by_first_player %}
+                            X
+                        {% else %}
+                            0
+                        {% endif %}
+
+                    {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <!--
+     -->
+</div>
+
+{% if form %}
+<div class="col-md-4">
+    <h3>Its your Move</h3>
+    <form role="form" action="{% url 'gameplay_make_move' game.id %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+
+        <button type="submit" class="btn btn-success">Make Move</button>
+    </form>
+</div>
+{% endif %}
+
+{% endblock content %}
