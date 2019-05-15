@@ -1,7 +1,7 @@
-{% extends "base.html" %}
-
-{% block content %}
-<h2><p>Hello {{user.username}}!</p></h2>
+{% extends "base.html" %} {% block content %}
+<h2>
+    <p>Hello {{user.username}}!</p>
+</h2>
 <!-- There are {{ngames}} available games in db. -->
 
 <div class="row">
@@ -30,9 +30,7 @@
         {% if invitations %}
         <div class="lis-group">
             {% for invitation in invitations %}
-            <a class='list-group-item' href="{% url 'player_accept_invitation' id=invitation.id %}">{{ invitation.from_user.username }} has invited you to play game.</a>
-
-            {% endfor %}
+            <a class='list-group-item' href="{% url 'player_accept_invitation' id=invitation.id %}">{{ invitation.from_user.username }} has invited you to play game.</a> {% endfor %}
         </div>
         {% else %}
         <p>You don't have any invitation</p>
