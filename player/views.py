@@ -49,3 +49,6 @@ def accept_invitation(request, id):
         return redirect(game)
     else:
         return render(request, 'player/accept_invitation_form.html', {"invitation":invitation})
+
+def profile(request):
+    return True;
