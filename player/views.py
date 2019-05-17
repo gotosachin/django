@@ -50,5 +50,7 @@ def accept_invitation(request, id):
     else:
         return render(request, 'player/accept_invitation_form.html', {"invitation":invitation})
 
-def profile(request):
-    return True;
+def profile(request, id):
+    return render(request, 'player/profile.html', {"data": "Hiii"})
+        
+        
