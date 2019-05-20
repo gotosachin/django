@@ -4,7 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
 from .forms import InvitationForm
-from .models import Invitation
+from .models import Invitation, Profile
+
+import sys, os
+from django.core.files.storage import FileSystemStorage
 
 
 # Create your views here.
@@ -51,6 +54,21 @@ def accept_invitation(request, id):
         return render(request, 'player/accept_invitation_form.html', {"invitation":invitation})
 
 def profile(request, id):
-    return render(request, 'player/profile.html', {"data": "Hiii"})
+    if request.method == 'POST' and request.FILES['file']:
+        MyProfileForm = Profile(request.POST, request.FILES)
+        if MyProfileForm:
+            if not os.path.exists('media/profile_image'):
+                os.makedirs('media/profile_image', 777)
+
+            profile = Profile()
+            profile.url = 'ghkjgdfk'
+            profile.image_name = request.FILES.get("file")
+            profile.user = request.user
+            profile.save()
+            saved = True
+            # sys.exit(1) 
+            return render(request, 'player/profile.html', {"data": profile})
+    else:
+        return render(request, 'player/profile.html', {"data": "Hiii"})
         
         

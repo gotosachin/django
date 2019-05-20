@@ -21,11 +21,11 @@ class Invitation(models.Model):
 
 # player profile model class
 class Profile(models.Model):
-    image_name = models.CharField(max_length=100, blank=True, null=True)
-
+    #image_name = models.CharField(max_length=100, blank=True, null=True)
+    image_name = models.FileField(upload_to="media/profile_image/") 
     url = models.CharField(max_length=255, blank=True, null=True)
 
-    user_id = models.ForeignKey(User,
+    user = models.ForeignKey(User,
                                 related_name = 'user_of_image',
                                 on_delete=models.CASCADE
                                 )
